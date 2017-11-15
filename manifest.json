@@ -1,0 +1,68 @@
+{
+
+    "manifest_version": 2,
+    "name": "SpeeedDial",
+    "version": "1.0",
+
+    "description": "Add the ability to speed dial a link",
+
+    "icons": {
+        "48": "icons/border-48.png"
+    },
+    "background": {
+        "scripts": ["background_scripts/background.js"]
+    },
+    "permissions": ["alarms"],
+    "commands": {
+        "ctrl+0": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+0"
+            }
+        },
+        "ctrl+1": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+1"
+            }
+        },
+        "ctrl+2": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+2"
+            }
+        },
+        "ctrl+3": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+3"
+            }
+        },
+        "ctrl+4": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+4"
+            }
+        },
+        "ctrl+5": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+5"
+            }
+        },
+        "ctrl+6": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+6"
+            }
+        },
+        "ctrl+7": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+7"
+            }
+        },
+        "ctrl+8": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+8"
+            }
+        },
+        "ctrl+9": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+9"
+            }
+        }
+    }
+}
