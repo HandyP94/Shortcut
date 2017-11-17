@@ -1,21 +1,27 @@
 console.log("background started!");
 
-const DELAY = 0.01; // 2 seconds
-const MAX_NUMBER_LENGTH = 3;
-
 let settings;
 
 let openNumber = 0;
-let numberLength = 0;
 
 init();
 
 function init() {
-    loadJson("settings.json", (json) => {
-        settings = json;
-    });
+    // loadJson("settings.json", (json) => {
+    //     settings = json;
+    // });
+    loadFromStorage();
     addListeners();
 };
+
+function loadFromStorage() {
+    var getting = browser.storage.local.get("settings");
+    getting.then((storage) => {
+        settings = storage.settings;
+    }, (error) => {
+        console.log(`Error: ${error}`);
+    });
+}
 
 function addListeners() {
     browser.commands.onCommand.addListener((command) => {
@@ -26,19 +32,16 @@ function addListeners() {
         }
     });
 
-    browser.alarms.onAlarm.addListener((alarm) => {
-        if (alarm.name === "timeout") {
-            onTimeout();
-        }
-    });
-
     browser.runtime.onMessage.addListener((message) => {
         let number = Number.parseInt(message.number, 10);
         if (number !== NaN) {
-            openNumber = number;
-            numberLength = message.number.length;
+            openNumber = number;;
             tryOpen();
         }
+    });
+
+    browser.storage.onChanged.addListener(() => {
+        loadFromStorage();
     });
 }
 
@@ -50,39 +53,10 @@ function onOpenSpeedDial() {
     });
 }
 
-
-function onCtrl(number) {
-    console.log(number);
-    if (numberLength < MAX_NUMBER_LENGTH) {
-        openNumber = (openNumber * 10) + number;
-        numberLength++;
-        if (numberLength === MAX_NUMBER_LENGTH) {
-            browser.alarms.clear("timeout");
-            tryOpen();
-        } else {
-            restartAlarm();
-        }
-    }
-};
-
-function restartAlarm() {
-    console.log("restartAlarm")
-    browser.alarms.clear("timeout");
-    browser.alarms.create("timeout", {
-        delayInMinutes: DELAY
-    });
-}
-
-function onTimeout() {
-    console.log("timeout")
-    tryOpen();
-}
-
 function tryOpen() {
     console.log("tryOpen")
-    if (numberLength !== 0) {
+    if (openNumber !== 0) {
         tryOpenNumber();
-        numberLength = 0;
         openNumber = 0;
     }
 }

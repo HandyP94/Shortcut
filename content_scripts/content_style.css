@@ -24,13 +24,14 @@
 
 #SpeedDialIdRootinput {
     width: 180px;
-    border: 0;
+    border: 0 !important;
     background: transparent;
     color: transparent;
     height: 80px;
     font-size: 70px;
     text-shadow: 0 0 0 yellow;
     text-align: center;
+    box-shadow: 0 0 !important;
 }
 
 #SpeedDialIdRootinput:focus {
