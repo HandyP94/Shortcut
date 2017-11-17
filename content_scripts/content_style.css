@@ -1,0 +1,38 @@
+#SpeedDialIdRootouterDiv {
+    position: fixed;
+    width: 100%;
+    top: 30px;
+    z-index: 100000;
+}
+
+#SpeedDialIdRootinnerDiv {
+    background: rgba(0, 0, 0, 0.8);
+    margin: 0 auto;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+    border: 0px solid #000000;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+#SpeedDialIdRootinput {
+    width: 180px;
+    border: 0;
+    background: transparent;
+    color: transparent;
+    height: 80px;
+    font-size: 70px;
+    text-shadow: 0 0 0 yellow;
+    text-align: center;
+}
+
+#SpeedDialIdRootinput:focus {
+    outline: none;
+}
