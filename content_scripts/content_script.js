@@ -1,5 +1,6 @@
 const idRoot = "SpeedDialIdRoot";
 const DELAY = 1000;
+let isContentHTML;
 
 let timeoutId;
 
@@ -8,13 +9,19 @@ init();
 function init() {
     injectUI();
     addListeners();
+    isContentHTML = $("#isSpeeedDialContentHTML").length !== 0;
+    if(isContentHTML) {
+        openSpeedDial();
+    }
 }
 
 function addListeners() {
     browser.runtime.onMessage.addListener((message) => {
         if (message === "openSpeedDial") {
             openSpeedDial();
-            restartTimeout();
+            if (!isContentHTML) {
+                restartTimeout();
+            }
         };
     });
 }

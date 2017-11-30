@@ -40,14 +40,30 @@ function addListeners() {
     browser.storage.onChanged.addListener(() => {
         loadFromStorage();
     });
+
+    browser.browserAction.onClicked.addListener(() => {
+        browser.tabs.create({
+            "url": "../settings_page/settings_page.html"
+        });
+    });
 }
 
 function onOpenSpeedDial() {
     getActiveTab((tab) => {
-        browser.tabs.sendMessage(tab.id, "openSpeedDial");
+        if (!isAboutTab(tab)) {
+            browser.tabs.sendMessage(tab.id, "openSpeedDial");
+        } else {
+            browser.tabs.create({
+                "url": "../content_scripts/content.html"
+            });
+        }
     }, () => {
         console.log("couldn't get active tab");
     });
+}
+
+function isAboutTab(tab) {
+    return tab.url.startsWith("about:");
 }
 
 function tryOpen() {
