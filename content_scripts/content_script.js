@@ -22,7 +22,9 @@ function addListeners() {
             if (!isContentHTML) {
                 restartTimeout();
             }
-        };
+        } else if(message === "numberNoUrl" && isContentHTML) {
+            openSpeedDial();
+        }
     });
 }
 

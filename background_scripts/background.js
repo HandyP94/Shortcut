@@ -53,9 +53,12 @@ function onOpenSpeedDial() {
         if (!isAboutTab(tab)) {
             browser.tabs.sendMessage(tab.id, "openSpeedDial");
         } else {
-            browser.tabs.create({
+            browser.tabs.update(tab.id, {
                 "url": "../content_scripts/content.html"
             });
+            // browser.tabs.create({
+            //     "url": "../content_scripts/content.html"
+            // });
         }
     }, () => {
         console.log("couldn't get active tab");
@@ -77,10 +80,21 @@ function tryOpen() {
 function tryOpenNumber() {
     if (openNumber !== 0) {
         console.log("number: " + openNumber);
-        updateCurrentTab(getUrlForNumber(openNumber));
+        let url = getUrlForNumber(openNumber);
+        if (url !== null) {
+            updateCurrentTab(url);
+        } else {
+            sendNumberNoUrlToForeground();
+        }
     } else {
         console.log("number was 0");
     }
+}
+
+function sendNumberNoUrlToForeground() {
+    getActiveTab((tab) => {
+        browser.tabs.sendMessage(tab.id, "numberNoUrl");
+    });
 }
 
 function getUrlForNumber(number) {
