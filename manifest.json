@@ -30,10 +30,7 @@
     "options_ui": {
         "page": "options/options.html"
     },
-    "permissions": [
-        "storage", // for saving settings
-        "tabs" // for recognizing about:* tabs
-    ],
+    "permissions": ["storage", "tabs"],
     "commands": {
         "ctrl+q": {
             "suggested_key": {
