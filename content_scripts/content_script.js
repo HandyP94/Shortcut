@@ -23,6 +23,7 @@ function addListeners() {
                 restartTimeout();
             }
         } else if(message === "numberNoUrl" && isContentHTML) {
+            console.log("no url for number");
             openSpeedDial();
         }
     });
