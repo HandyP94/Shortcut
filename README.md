@@ -5,7 +5,15 @@
 Shortcut helps you open your favorite websites with keyboard shortcuts.
 
 Just press Ctrl+Q and then input the number assigned in the settings to the shortcut you want to open.
+
+## Permission:
+
+* storage: for saving settings
+* tabs: for recognizing about:* tabs
+
 <br><br><br>
+
+
 
 ## Libraries used
 
