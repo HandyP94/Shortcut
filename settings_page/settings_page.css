@@ -5,7 +5,7 @@ body {
 
 .shortcutDiv {
     display: grid;
-    grid-template-columns: 1em auto 1em;
+    grid-template-columns: 2em auto 1em;
     width: 100%;
     border: .05em solid #ddd;
     border-radius: .3em;
