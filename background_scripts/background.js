@@ -24,8 +24,8 @@ function addListeners() {
     browser.commands.onCommand.addListener((command) => {
         if (command === "ctrl+q") {
             onOpenSpeedDial();
-        } else if (command.startsWith("ctrl+")) {
-            onCtrl(Number.parseInt(command.charAt(command.length - 1)));
+        } else if (command === "alt+shift+q") {
+            onDuplicateTab();
         }
     });
 
@@ -145,7 +145,15 @@ function updateCurrentTab(url) {
                 console.log("couldn't update current tab:" + url)
             });
         }, () => {
-            console.log("couldn't query tabs")
+            console.log("couldn't query tabs");
         });
     }
+}
+
+function onDuplicateTab() {
+    console.log("onDuplicateTab");
+    getActiveTab(
+        (tab) => browser.tabs.duplicate(tab.id),
+        () => console.log("couldn't duplicate tab")
+    );
 }
