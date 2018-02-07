@@ -182,7 +182,10 @@ function restoreOptions() {
 function exportSettings() {
     getSettingsFromStorage().then(
         (settings) => downloadJsonObj(settings),
-        (error) => console.log(`Error: ${error}`)
+        (error) => {
+            console.log(`Error: ${error}`);
+            alertUser("An error occured. Can't export settings.");
+        }
     );
 }
 
@@ -202,13 +205,23 @@ function importSettings() {
         let text = data.target.result;
         try {
             let parsed = JSON.parse(text);
-            setSettingsToStorage(parsed.settings);
-            resetPage();
+            if("settings" in parsed) {
+                let settings = parsed.settings;
+                setSettingsToStorage(parsed.settings);
+                resetPage();
+            } else {
+                throw "wrong file format";
+            }
         } catch (e) {
-            console.log("couldn't read file");
+            console.log(`Error: ${e}`);
+            alertUser("Couldn't read file. Settings were not imported.");
         }
     }
     reader.readAsText(file);
+}
+
+function alertUser(text) {
+    alert(text);
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
