@@ -1,14 +1,16 @@
 body {
     padding-right: 1em;
+    color: rgba(0, 0, 0, .8)
 }
 
 .shortcutDiv {
     display: grid;
     grid-template-columns: 1em auto 1em;
     width: 100%;
-    border: .125em solid black;
+    border: .05em solid #ddd;
     border-radius: .3em;
     padding: .5em;
+    margin-bottom: .15em;
 }
 
 .deleteButton {
@@ -16,6 +18,7 @@ body {
     height: 1em;
     cursor: pointer;
     justify-self: center;
+    transition: .1s;
 }
 
 .shortcutIndex {
@@ -24,4 +27,43 @@ body {
 
 .shortcutUrl {
     margin-right: 1em;
+}
+
+.gu-mirror {
+    height: auto !important;
+}
+
+.inputText {
+    box-shadow: inset 0px 0px 3px 1px #ddd;
+    min-height: 1.1em;
+    padding: .5em .6em;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    margin: 0 .5em 0 0;
+}
+
+.button {
+    display: inline-block;
+    min-height: 1.1em;
+    padding: .5em .6em;
+    border-radius: 3px;
+    border: 0;
+    background: #e0e1e2 none;
+    color: rgba(0, 0, 0, .6);
+    box-sizing: border-box;
+    margin: 0 .5em 0 0;
+}
+
+.button:hover {
+    background: #cacbcd none;
+    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+    color: rgba(0, 0, 0, .8);
+}
+
+#form {
+    margin-top: 1em;
+    display: flex;
 }

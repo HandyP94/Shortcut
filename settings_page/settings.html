@@ -7,16 +7,16 @@
     <title>Speed Dial Options</title>
     <script src="../libs/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="../content_scripts/content_style.css">
-    <link rel="stylesheet" href="settings_page.css">
     <link rel="stylesheet" href="../libs/dragula.css">
+    <link rel="stylesheet" href="settings_page.css">
 </head>
 
 <body>
-    <form>
-        <div id="container"></div>
-        <input type="url" id="urlInput" />
-        <input type="button" id="addButton" value="Add Link" />
-        <input type="button" id="saveButton" value="Save" />
+    <div id="container"></div>
+    <form id="form">
+        <input type="url" class="inputText" id="urlInput" required/>
+        <input type="button" class="button" id="addButton" value="Add Link" />
+        <input type="button" class="button" id="saveButton" value="Save" />
     </form>
     <script src="../libs/dragula.js"></script>
     <script src="settings_page.js"></script>

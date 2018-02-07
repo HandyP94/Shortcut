@@ -90,12 +90,16 @@ function createLinkDiv(id, index, link) {
     }).text(link));
     let removeButton = $("<img>", {
         "class": "deleteButton",
-        "src": "../img/ic_delete_black_24px.svg"
+        "src": "../img/ic_delete.svg"
     });
     removeButton.click(() => {
         let shortcutId = removeButton.parent().attr("data-id");
         removeShortcut(shortcutId);
         refreshIndices();
+    }).hover(() => {
+        removeButton.attr("src", "../img/ic_delete_hover.svg");
+    }).mouseleave(() => {
+        removeButton.attr("src", "../img/ic_delete.svg");
     });
     row.append(removeButton);
     return row;
