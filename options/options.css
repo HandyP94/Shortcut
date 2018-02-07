@@ -1,1 +1,17 @@
-    
+button {
+    display: inline-block;
+    min-height: 1.1em;
+    padding: .5em .6em;
+    border-radius: 3px;
+    border: 0;
+    background: #e0e1e2 none;
+    color: rgba(0, 0, 0, .6);
+    box-sizing: border-box;
+    margin: 0 .5em 0 0;
+}
+
+button:hover {
+    background: #cacbcd none;
+    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, .15) inset;
+    color: rgba(0, 0, 0, .8);
+}
