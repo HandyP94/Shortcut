@@ -99,9 +99,9 @@ function sendNumberNoUrlToForeground() {
 
 function getUrlForNumber(number) {
     if (settings !== undefined) {
-        let url = settings.shortcuts[number];
-        if (url !== undefined && url.length > 0) {
-            return url;
+        let shortcut = settings.shortcuts[number];
+        if (shortcut !== undefined && shortcut.link.length > 0) {
+            return shortcut.link;
         }
     }
     return null;

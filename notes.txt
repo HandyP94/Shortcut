@@ -1,2 +1,7 @@
 storage: for saving settings
 tabs: for recognizing about:* tabs 
+
+Impressum:
+
+- https://github.com/bevacqua/dragula/
+- https://github.com/google/material-design-icons/blob/master/LICENSE

@@ -1,19 +1,51 @@
 init();
 
-let currentShortcutLength = 0;
+/*
+ * shortcut-object:
+ * {
+ *     id: "id",
+ *     link: "url"
+ * }
+ */
 
 function init() {
     $("#addButton").click(addNewLinkRow);
     $("#saveButton").click(saveOptions);
+
+    let drake = dragula([document.querySelector('#container')], {
+        revertOnSpill: false,
+        removeOnSpill: false,
+    });
+    drake.on("drop", () => {
+        refreshIndices();
+    });
 }
 
 function addNewLinkRow() {
-    currentShortcutLength++;
-    addLinkRow(createRow(currentShortcutLength.toString()));
+    if (checkUrlInput()) {
+        let id = getNewId();
+        let index = getNextIndex();
+        let url = $("#urlInput").val();
+        addLinkDiv(createLinkDiv(id, index, url));
+    } else {
+        console.log("url not ok")
+    }
 }
 
-function addLinkRow(linkRow) {
-    $("#tbody").append(linkRow);
+function checkUrlInput() {
+    return $("#urlInput").val().trim().length > 0;
+}
+
+function getNewId() {
+    return Date.now().toString();
+}
+
+function getNextIndex() {
+    return ($("#container").children().length + 1).toString();
+}
+
+function addLinkDiv(linkRowDiv) {
+    $("#container").append(linkRowDiv);
 }
 
 function setFromStorage(storage) {
@@ -37,58 +69,81 @@ function setShortcutsFromStorage(shortcuts) {
             }
             return 0;
         });
-        currentShortcutLength = keys.length;
-        for (let i = 0; i < currentShortcutLength; i++) {
-            addLinkRow(createRow(keys[i], shortcuts[keys[i]]));
+        for (let i = 0; i < keys.length; i++) {
+            let shortcut = shortcuts[keys[i]];
+            addLinkDiv(createLinkDiv(shortcut.id, keys[i], shortcut.link));
         }
     }
 }
 
-function createRow(shortcut, link) {
-    let row = $("<tr>", {
-        "class": "shortcutRow"
+function createLinkDiv(id, index, link) {
+    let row = $("<div>", {
+        "id": "linkDiv" + id,
+        "class": "shortcutDiv",
+        "data-id": id
     });
-    row.append($("<td>", {
-        "class": "shortcutTd"
-    }).text(shortcut));
-    row.append(createInputTd(link));
+    row.append($("<div>", {
+        "class": "shortcutIndex"
+    }).text(index));
+    row.append($("<div>", {
+        "class": "shortcutUrl"
+    }).text(link));
+    let removeButton = $("<img>", {
+        "class": "deleteButton",
+        "src": "../img/ic_delete_black_24px.svg"
+    });
+    removeButton.click(() => {
+        let shortcutId = removeButton.parent().attr("data-id");
+        removeShortcut(shortcutId);
+        refreshIndices();
+    });
+    row.append(removeButton);
     return row;
 }
 
-function createInputTd(link) {
-    let td = $("<td>");
-    td.append($("<input>", {
-        "type": "url"
-    }).val(link));
-    return td;
+function removeShortcut(id) {
+    $("#linkDiv" + id).remove();
+}
+
+function refreshIndices() {
+    let index = 1;
+    let children = $("#container").children();
+    children.each((ind, child) => {
+        $(child).find(".shortcutIndex").text(index.toString());
+        index++;
+    });
 }
 
 function createSettings() {
     return {
-        "shortcuts": createShortcutsForStorage()
+        "shortcuts": createShortcutsObjectForStorage()
     };
 }
 
-function createShortcutsForStorage() {
+function createShortcutsObjectForStorage() {
     let shortcuts = {};
-    let shortcutRows = $(".shortcutRow");
-    if (shortcutRows.length !== 0) {
-        if (shortcutRows.length > 1) {
-            for (let i = 0; i < shortcutRows.length; i++) {
-                const row = shortcutRows[i];
-                addRowToShortcuts(shortcuts, $(row));
+    let shortcutDivs = $(".shortcutDiv");
+    if (shortcutDivs.length !== 0) {
+        if (shortcutDivs.length > 1) {
+            for (let i = 0; i < shortcutDivs.length; i++) {
+                const div = shortcutDivs[i];
+                addDivToShortcutsObject(shortcuts, $(div));
             }
         } else {
-            addRowToShortcuts(shortcuts, shortcutRows);
+            addDivToShortcutsObject(shortcuts, shortcutDivs);
         }
     }
     return shortcuts;
 }
 
-function addRowToShortcuts(shortcuts, row) {
-    let shortcut = row.find(".shortcutTd").text();
-    let link = row.find("input").val();
-    shortcuts[shortcut] = link;
+function addDivToShortcutsObject(shortcuts, div) {
+    let id = div.attr("data-id");
+    let link = div.find(".shortcutUrl").text();
+    let index = div.find(".shortcutIndex").text();
+    shortcuts[index] = {
+        id: id,
+        link: link
+    };
 }
 
 function saveOptions(e) {

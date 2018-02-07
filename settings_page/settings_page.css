@@ -1,0 +1,27 @@
+body {
+    padding-right: 1em;
+}
+
+.shortcutDiv {
+    display: grid;
+    grid-template-columns: 1em auto 1em;
+    width: 100%;
+    border: .125em solid black;
+    border-radius: .3em;
+    padding: .5em;
+}
+
+.deleteButton {
+    width: 1em;
+    height: 1em;
+    cursor: pointer;
+    justify-self: center;
+}
+
+.shortcutIndex {
+    margin-right: 1em;
+}
+
+.shortcutUrl {
+    margin-right: 1em;
+}
