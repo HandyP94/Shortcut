@@ -20,9 +20,16 @@
         <input type="button" class="button" id="resetButton" value="Reset" />
     </form>
     <div id="importExport">
-        <input type="button" class="button" id="importSettingsButton" value="Import Settings" />
-        <input type="button" class="button" id="exportSettingsButton" value="Export Settings" />
-        <a id="downloadAnchorElem" style="display:none"></a>
+        <form>
+            <label class="file">
+                <input type="file" id="importSettingsFile" accept=".json"/>
+                Import Settings
+            </label>
+        </form>
+        <form>
+            <input type="button" class="button" id="exportSettingsButton" value="Export Settings" />
+            <a id="downloadAnchorElem" style="display:none"></a>
+        </form>
     </div>
     <script src="../libs/dragula.js"></script>
     <script src="settings_page.js"></script>

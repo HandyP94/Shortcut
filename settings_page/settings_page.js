@@ -13,6 +13,7 @@ function init() {
     $("#saveButton").click(saveOptions);
     $("#resetButton").click(resetPage);
     $("#exportSettingsButton").click(exportSettings);
+    $("#importSettingsFile").on("input", importSettings);
 
     let drake = dragula([document.querySelector('#container')], {
         revertOnSpill: false,
@@ -54,7 +55,7 @@ function addLinkDiv(linkRowDiv) {
 
 function setFromStorage(storage) {
     let settings = storage.settings;
-    if (settings !== undefined) {
+    if (settings !== undefined && "shortcuts" in settings) {
         setShortcutsFromStorage(settings["shortcuts"]);
     }
 }
@@ -161,8 +162,12 @@ function resetPage() {
 
 function saveOptions(e) {
     e.preventDefault();
+    setSettingsToStorage(createSettings());
+}
+
+function setSettingsToStorage(settings) {
     browser.storage.local.set({
-        settings: createSettings()
+        settings: settings
     });
 }
 
@@ -182,11 +187,28 @@ function exportSettings() {
 }
 
 function downloadJsonObj(objToDownload) {
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(objToDownload));
-    var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(objToDownload));
+    let dlAnchorElem = document.getElementById('downloadAnchorElem');
     dlAnchorElem.setAttribute("href", dataStr);
     dlAnchorElem.setAttribute("download", "shortcut.json");
     dlAnchorElem.click();
+}
+
+function importSettings() {
+    let file = $("#importSettingsFile")[0].files[0];
+
+    let reader = new FileReader();
+    reader.onload = (data) => {
+        let text = data.target.result;
+        try {
+            let parsed = JSON.parse(text);
+            setSettingsToStorage(parsed.settings);
+            resetPage();
+        } catch (e) {
+            console.log("couldn't read file");
+        }
+    }
+    reader.readAsText(file);
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
