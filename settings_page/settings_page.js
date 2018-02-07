@@ -12,6 +12,7 @@ function init() {
     $("#addButton").click(addNewLinkRow);
     $("#saveButton").click(saveOptions);
     $("#resetButton").click(resetPage);
+    $("#exportSettingsButton").click(exportSettings);
 
     let drake = dragula([document.querySelector('#container')], {
         revertOnSpill: false,
@@ -165,12 +166,27 @@ function saveOptions(e) {
     });
 }
 
+function getSettingsFromStorage() {
+    return browser.storage.local.get("settings");
+}
+
 function restoreOptions() {
-    function onError(error) {
-        console.log(`Error: ${error}`);
-    }
-    var getting = browser.storage.local.get("settings");
-    getting.then(setFromStorage, onError);
+    getSettingsFromStorage().then(setFromStorage, (error) => console.log(`Error: ${error}`));
+}
+
+function exportSettings() {
+    getSettingsFromStorage().then(
+        (settings) => downloadJsonObj(settings),
+        (error) => console.log(`Error: ${error}`)
+    );
+}
+
+function downloadJsonObj(objToDownload) {
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(objToDownload));
+    var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "shortcut.json");
+    dlAnchorElem.click();
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
