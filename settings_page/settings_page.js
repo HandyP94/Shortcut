@@ -28,6 +28,8 @@ function addNewLinkRow() {
         let index = getNextIndex();
         let url = $("#urlInput").val();
         addLinkDiv(createLinkDiv(id, index, url));
+        $("#urlInput").val("");
+        $("#urlInput").focus();
     } else {
         console.log("url not ok")
     }
