@@ -11,6 +11,7 @@ init();
 function init() {
     $("#addButton").click(addNewLinkRow);
     $("#saveButton").click(saveOptions);
+    $("#resetButton").click(resetPage);
 
     let drake = dragula([document.querySelector('#container')], {
         revertOnSpill: false,
@@ -148,6 +149,11 @@ function addDivToShortcutsObject(shortcuts, div) {
         id: id,
         link: link
     };
+}
+
+function resetPage() {
+    $("#container").empty();
+    restoreOptions();
 }
 
 function saveOptions(e) {
