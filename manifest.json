@@ -1,11 +1,10 @@
 {
 
     "manifest_version": 2,
-    "name": "SpeeedDial",
+    "name": "Shortcut",
     "version": "1.0",
 
-    "description": "Add the ability to speed dial a link",
-
+    "description": "Open your favorite website with keyboard shortcuts",
 
     "content_scripts": [{
         "matches": ["<all_urls>"],
@@ -13,19 +12,11 @@
         "css": ["content_scripts/content_style.css"]
     }],
     "icons": {
-        "48": "img/icon-48.png"
-
+        "48": "img/logo.svg",
+        "96": "img/logo.svg"
     },
     "background": {
         "scripts": ["background_scripts/background.js"]
-    },
-    "browser_action": {
-        "default_icon": {
-            "64": "img/icon-64.png",
-            "32": "img/icon-32.png",
-            "16": "img/icon-16.png"
-        },
-        "default_title": "OpenPage"
     },
     "options_ui": {
         "page": "options/options.html"
