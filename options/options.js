@@ -3,9 +3,9 @@ init();
 let currentShortcutLength = 0;
 
 function init() {
-    document.addEventListener("DOMContentLoaded", () => {
-        openSettingsOrSwitch();
-    });
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     openSettingsOrSwitch();
+    // });
     $("#openSettingsButton").click(() => {
         openSettingsOrSwitch();
     });
