@@ -29,7 +29,8 @@
     "commands": {
         "ctrl+q": {
             "suggested_key": {
-                "default": "Ctrl+Q"
+                "default": "Ctrl+Q",
+                "mac": "MacCtrl+Q"
             }
         },
         "alt+shift+q": {

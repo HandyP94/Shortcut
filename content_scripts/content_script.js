@@ -9,7 +9,7 @@ init();
 function init() {
     injectUI();
     addListeners();
-    isContentHTML = $("#isSpeeedDialContentHTML").length !== 0;
+    isContentHTML = $("#isShortcutContentHTML").length !== 0;
     if(isContentHTML) {
         openSpeedDial();
     }
