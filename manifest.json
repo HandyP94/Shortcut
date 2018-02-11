@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "Shortcut",
-    "version": "1.1",
+    "version": "1.1.1",
 
     "gecko": {
         "id": "{35f68f2b-08bc-4823-946b-03afc03a512f}"
